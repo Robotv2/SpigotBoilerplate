@@ -22,7 +22,8 @@ public class Items {
             items.put(
                     tValue.name(),
                     SectionLoader.loadFromSection(
-                            section, tValue.name().toLowerCase(Locale.ROOT),
+                            section,
+                            tValue.name().toLowerCase(Locale.ROOT),
                             ItemSection.class
                     )
             );
@@ -34,7 +35,7 @@ public class Items {
     }
 
     public <T extends Enum<T>> ItemStack item(T enumValue) {
-        return items.get(enumValue.name()).getItemStack();
+        return items.get(enumValue.name()).toItemStack();
     }
 
     public <T extends Enum<T>> ApplicableItem applicableItem(T enumValue) {
