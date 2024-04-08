@@ -35,7 +35,9 @@ public class Items {
     }
 
     public <T extends Enum<T>> ItemStack item(T enumValue) {
-        return items.get(enumValue.name()).toItemStack();
+        return new ApplicableItem(items.get(enumValue.name()).toItemStack())
+                .color()
+                .getItemStack();
     }
 
     public <T extends Enum<T>> ApplicableItem applicableItem(T enumValue) {
