@@ -2,6 +2,7 @@ package fr.robotv2.spigotboilerplate.items;
 
 import fr.robotv2.spigotboilerplate.placeholders.InternalPlaceholder;
 import fr.robotv2.spigotboilerplate.placeholders.RelationalValuePlaceholder;
+import fr.robotv2.spigotboilerplate.placeholders.TriRelationalValuePlaceholder;
 import fr.robotv2.spigotboilerplate.placeholders.ValuePlaceholder;
 import fr.robotv2.spigotboilerplate.util.ColorUtil;
 import fr.robotv2.spigotboilerplate.util.ItemUtil;
@@ -72,6 +73,10 @@ public class ApplicableItem {
 
     public <A, B> ApplicableItem apply(RelationalValuePlaceholder<A, B> placeholder, A fst, B snd) {
         return apply(s -> placeholder.apply(s, fst, snd));
+    }
+
+    public <A, B, C> ApplicableItem apply(TriRelationalValuePlaceholder<A, B, C> placeholder, A fst, B snd, C thd) {
+        return apply(s -> placeholder.apply(fst, snd, thd));
     }
 
     public ApplicableItem applyIf(Predicate<String> predicate, String from, String to) {
