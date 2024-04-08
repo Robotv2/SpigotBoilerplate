@@ -11,6 +11,7 @@ public enum SpigotBoilerplate {
     INSTANCE,
     ;
 
+    private JavaPlugin plugin;
     private boolean loaded;
     private Logger logger;
 
@@ -20,7 +21,8 @@ public enum SpigotBoilerplate {
             return;
         }
 
-        loaded = true;
-        logger = plugin.getLogger();
+        this.loaded = true;
+        this.logger = plugin.getLogger();
+        this.plugin = plugin;
     }
 }
