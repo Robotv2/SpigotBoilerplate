@@ -94,4 +94,8 @@ public class ApplicableItem {
     public ApplicableItem color() {
         return apply(ColorUtil::color);
     }
+
+    public ItemStack getItemStack() {
+        return itemStack.clone();
+    }
 }
