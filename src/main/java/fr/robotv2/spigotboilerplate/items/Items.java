@@ -37,6 +37,10 @@ public class Items {
         return items.get(enumValue.name()).getItemStack();
     }
 
+    public <T extends Enum<T>> ApplicableItem applicableItem(T enumValue) {
+        return new ApplicableItem(item(enumValue));
+    }
+
     public <T extends Enum<T>> GuiItem guiItem(T enumValue) {
         return new GuiItem(item(enumValue));
     }
