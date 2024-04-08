@@ -1,6 +1,7 @@
 package fr.robotv2.spigotboilerplate.items;
 
 import fr.robotv2.spigotboilerplate.placeholders.InternalPlaceholder;
+import fr.robotv2.spigotboilerplate.placeholders.RelationalValuePlaceholder;
 import fr.robotv2.spigotboilerplate.placeholders.ValuePlaceholder;
 import fr.robotv2.spigotboilerplate.util.ColorUtil;
 import fr.robotv2.spigotboilerplate.util.ItemUtil;
@@ -67,6 +68,10 @@ public class ApplicableItem {
 
     public <T> ApplicableItem apply(ValuePlaceholder<T> placeholder, T value) {
         return apply(s -> placeholder.apply(s, value));
+    }
+
+    public <A, B> ApplicableItem apply(RelationalValuePlaceholder<A, B> placeholder, A fst, B snd) {
+        return apply(s -> placeholder.apply(s, fst, snd));
     }
 
     public ApplicableItem applyIf(Predicate<String> predicate, String from, String to) {
