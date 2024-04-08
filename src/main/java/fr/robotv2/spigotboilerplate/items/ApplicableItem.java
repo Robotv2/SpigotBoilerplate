@@ -76,7 +76,7 @@ public class ApplicableItem {
     }
 
     public <A, B, C> ApplicableItem apply(TriRelationalValuePlaceholder<A, B, C> placeholder, A fst, B snd, C thd) {
-        return apply(s -> placeholder.apply(fst, snd, thd));
+        return apply(s -> placeholder.apply(s, fst, snd, thd));
     }
 
     public ApplicableItem applyIf(Predicate<String> predicate, String from, String to) {
