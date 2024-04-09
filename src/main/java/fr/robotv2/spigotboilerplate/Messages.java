@@ -29,6 +29,10 @@ public class Messages {
     @Setter
     private String defaultPath = "";
 
+    public void invalidateCache() {
+        cache.clear();
+    }
+
     public String getMessage(String path) {
         return source != null ? source.getString(defaultPath + path) : "Source is missing in Messages.";
     }
