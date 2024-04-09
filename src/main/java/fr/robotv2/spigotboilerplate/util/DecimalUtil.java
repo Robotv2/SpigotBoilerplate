@@ -14,6 +14,6 @@ public class DecimalUtil {
     }
 
     public String pourcentage(double value, double max) {
-        return format(value * 100 / max);
+        return format(Math.min(value * 100 / max, 100));
     }
 }
