@@ -1,13 +1,11 @@
 package fr.robotv2.spigotboilerplate.items;
 
-import fr.robotv2.spigotboilerplate.placeholders.InternalPlaceholder;
-import fr.robotv2.spigotboilerplate.placeholders.RelationalValuePlaceholder;
-import fr.robotv2.spigotboilerplate.placeholders.TriRelationalValuePlaceholder;
-import fr.robotv2.spigotboilerplate.placeholders.ValuePlaceholder;
+import fr.robotv2.spigotboilerplate.placeholders.*;
 import fr.robotv2.spigotboilerplate.util.ColorUtil;
 import fr.robotv2.spigotboilerplate.util.ItemUtil;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -98,6 +96,10 @@ public class ApplicableItem {
 
     public ApplicableItem color() {
         return apply(ColorUtil::color);
+    }
+
+    public ApplicableItem papi(OfflinePlayer offlinePlayer) {
+        return apply(s -> SafePlaceholderAPI.parsePAPI(s, offlinePlayer));
     }
 
     public ItemStack getItemStack() {
