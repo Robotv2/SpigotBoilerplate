@@ -1,10 +1,12 @@
 package fr.robotv2.spigotboilerplate.util;
 
-import fr.robotv2.spigotboilerplate.items.ApplicableItem;
+import com.google.common.base.Enums;
+import fr.robotv2.spigotboilerplate.SpigotBoilerplate;
 import fr.robotv2.spigotboilerplate.placeholders.*;
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class CommandList {
     }
 
     public CommandList papi(OfflinePlayer offlinePlayer) {
-        return apply(s -> SafePlaceholderAPI.parsePAPI(s, offlinePlayer));
+        return apply(text -> SafePlaceholderAPI.parsePAPI(text, offlinePlayer));
     }
 
     public CommandList apply(String from, String to) {
@@ -38,15 +40,15 @@ public class CommandList {
     }
 
     public <T> CommandList apply(ValuePlaceholder<T> placeholder, T value) {
-        return apply(s -> placeholder.apply(s, value));
+        return apply(text -> placeholder.apply(text, value));
     }
 
     public <A, B> CommandList apply(RelationalValuePlaceholder<A, B> placeholder, A fst, B snd) {
-        return apply(s -> placeholder.apply(s, fst, snd));
+        return apply(text -> placeholder.apply(text, fst, snd));
     }
 
     public <A, B, C> CommandList apply(TriRelationalValuePlaceholder<A, B, C> placeholder, A fst, B snd, C thd) {
-        return apply(s -> placeholder.apply(s, fst, snd, thd));
+        return apply(text -> placeholder.apply(text, fst, snd, thd));
     }
 
     public void execute(Player player) {
@@ -56,17 +58,30 @@ public class CommandList {
         for(String command : commands) {
 
             final String prefix = command.split(" ")[0];
-            final String finalCommand = command.substring(prefix.length());
+            final String argument = command.length() == prefix.length() ? command.trim() : command.substring(prefix.length() + 1).trim();
 
             switch (prefix.toUpperCase(Locale.ROOT)) {
                 case "[PLAYER]":
-                    Bukkit.dispatchCommand(player, finalCommand);
+                    Bukkit.dispatchCommand(player, argument);
                     break;
                 case "[CONSOLE]":
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), argument);
                     break;
                 case "[MESSAGE]":
-                    player.sendMessage(ColorUtil.color(finalCommand));
+                    player.sendMessage(ColorUtil.color(argument));
+                    break;
+                case "[CLOSE]":
+                    player.closeInventory();
+                    break;
+                case "[SOUND]":
+                    final Sound sound = Enums.getIfPresent(Sound.class, argument.toUpperCase(Locale.ROOT)).orNull();
+
+                    if(sound == null) {
+                        SpigotBoilerplate.INSTANCE.getLogger().warning("Unknown song: " + argument);
+                        break;
+                    }
+
+                    player.playSound(player.getLocation(), sound, 1, 1);
                     break;
             }
         }
