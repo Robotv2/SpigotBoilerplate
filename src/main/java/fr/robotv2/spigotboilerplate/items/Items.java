@@ -58,7 +58,7 @@ public class Items {
     public <T extends Enum<T>> GuiItem guiItem(T enumValue, Consumer<InventoryClickEvent> eventConsumer) {
         final ItemSection itemSection = itemSection(enumValue);
         return itemSection.getOnClick().isEmpty()
-                ? new GuiItem(itemSection.toItemStack())
+                ? new GuiItem(itemSection.toItemStack(), eventConsumer)
                 : new GuiItem(itemSection.toItemStack(), event -> {
             new CommandList(itemSection.getOnClick()).execute((Player) event.getWhoClicked());
             eventConsumer.accept(event);
