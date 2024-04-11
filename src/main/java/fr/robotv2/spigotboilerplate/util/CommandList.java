@@ -65,6 +65,9 @@ public class CommandList {
                 case "[CONSOLE]":
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
                     break;
+                case "[MESSAGE]":
+                    player.sendMessage(ColorUtil.color(finalCommand));
+                    break;
             }
         }
     }
