@@ -48,18 +48,20 @@ public class Items {
 
     public <T extends Enum<T>> GuiItem guiItem(T enumValue) {
         final ItemSection itemSection = itemSection(enumValue);
+        final ItemStack itemStack = new ApplicableItem(itemSection.toItemStack()).color().getItemStack();
         return itemSection.getOnClick().isEmpty()
-                ? new GuiItem(itemSection.toItemStack())
-                : new GuiItem(itemSection.toItemStack(), event -> {
+                ? new GuiItem(itemStack)
+                : new GuiItem(itemStack, event -> {
                     new CommandList(itemSection.getOnClick()).execute((Player) event.getWhoClicked());
                 });
     }
 
     public <T extends Enum<T>> GuiItem guiItem(T enumValue, Consumer<InventoryClickEvent> eventConsumer) {
         final ItemSection itemSection = itemSection(enumValue);
+        final ItemStack itemStack = new ApplicableItem(itemSection.toItemStack()).color().getItemStack();
         return itemSection.getOnClick().isEmpty()
-                ? new GuiItem(itemSection.toItemStack(), eventConsumer)
-                : new GuiItem(itemSection.toItemStack(), event -> {
+                ? new GuiItem(itemStack, eventConsumer)
+                : new GuiItem(itemStack, event -> {
             eventConsumer.accept(event);
             new CommandList(itemSection.getOnClick()).execute((Player) event.getWhoClicked());
         });
