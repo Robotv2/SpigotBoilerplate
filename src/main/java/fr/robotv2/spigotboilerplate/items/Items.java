@@ -2,8 +2,10 @@ package fr.robotv2.spigotboilerplate.items;
 
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import fr.robotv2.spigotboilerplate.sections.SectionLoader;
+import fr.robotv2.spigotboilerplate.util.CommandList;
 import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -45,10 +47,21 @@ public class Items {
     }
 
     public <T extends Enum<T>> GuiItem guiItem(T enumValue) {
-        return new GuiItem(item(enumValue));
+        final ItemSection itemSection = itemSection(enumValue);
+        return itemSection.getOnClick().isEmpty()
+                ? new GuiItem(itemSection.toItemStack())
+                : new GuiItem(itemSection.toItemStack(), event -> {
+                    new CommandList(itemSection.getOnClick()).execute((Player) event.getWhoClicked());
+                });
     }
 
     public <T extends Enum<T>> GuiItem guiItem(T enumValue, Consumer<InventoryClickEvent> eventConsumer) {
-        return new GuiItem(item(enumValue), eventConsumer);
+        final ItemSection itemSection = itemSection(enumValue);
+        return itemSection.getOnClick().isEmpty()
+                ? new GuiItem(itemSection.toItemStack())
+                : new GuiItem(itemSection.toItemStack(), event -> {
+            new CommandList(itemSection.getOnClick()).execute((Player) event.getWhoClicked());
+            eventConsumer.accept(event);
+        });
     }
 }

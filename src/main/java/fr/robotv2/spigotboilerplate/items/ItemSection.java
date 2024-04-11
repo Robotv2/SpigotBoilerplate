@@ -18,12 +18,14 @@ public class ItemSection {
     private final String name;
     private final List<String> description;
     private final int customModelData;
+    private final List<String> onClick;
 
     public ItemSection(ConfigurationSection section) {
         this.material = Material.getMaterial(section.getString("material", "AIR"));
         this.name = section.getString("name");
         this.description = section.getStringList("description");
         this.customModelData = section.getInt("custom_model_data", Integer.MIN_VALUE);
+        this.onClick = section.getStringList("on_click");
     }
 
     public ItemStack toItemStack() {
