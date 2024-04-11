@@ -60,8 +60,8 @@ public class Items {
         return itemSection.getOnClick().isEmpty()
                 ? new GuiItem(itemSection.toItemStack(), eventConsumer)
                 : new GuiItem(itemSection.toItemStack(), event -> {
-            new CommandList(itemSection.getOnClick()).execute((Player) event.getWhoClicked());
             eventConsumer.accept(event);
+            new CommandList(itemSection.getOnClick()).execute((Player) event.getWhoClicked());
         });
     }
 }
