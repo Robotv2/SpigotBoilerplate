@@ -1,7 +1,5 @@
 package fr.robotv2.spigotboilerplate.misc;
 
-import fr.robotv2.spigotboilerplate.SpigotBoilerplate;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,10 +16,6 @@ public class ChatPrompt implements Listener {
 
     private static final String CANCEL_TEXT = "cancel";
     private static final Map<Player, Prompt> prompts = new HashMap<>();
-
-    static {
-        new ChatPrompt();
-    }
 
     /**
      * Prompts a player with callbacks for player response and cancelling
@@ -52,10 +46,6 @@ public class ChatPrompt implements Listener {
      */
     public static void prompt(Player player, String prompt, Consumer<String> onResponse) {
         ChatPrompt.prompt(player, prompt, onResponse, (reason) -> { });
-    }
-
-    private ChatPrompt() {
-        Bukkit.getPluginManager().registerEvents(this, SpigotBoilerplate.INSTANCE.getPlugin());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
