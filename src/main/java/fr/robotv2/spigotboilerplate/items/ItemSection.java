@@ -21,7 +21,7 @@ public class ItemSection {
     private final List<String> onClick;
 
     public ItemSection(ConfigurationSection section) {
-        this.material = Material.getMaterial(section.getString("material", "AIR"));
+        this.material = Material.matchMaterial(section.getString("material", "AIR"));
         this.name = section.getString("name");
         this.description = section.getStringList("description");
         this.customModelData = section.getInt("custom_model_data", Integer.MIN_VALUE);
