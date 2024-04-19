@@ -1,6 +1,8 @@
 package fr.robotv2.spigotboilerplate.items;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -9,16 +11,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 import java.util.Objects;
 
-@Data
+@AllArgsConstructor
 public class ItemSection {
 
     private ItemStack itemStack;
 
-    private final Material material;
-    private final String name;
-    private final List<String> description;
-    private final int customModelData;
-    private final List<String> onClick;
+    @Getter private final Material material;
+    @Getter private final String name;
+    @Getter private final List<String> description;
+    @Getter private final int customModelData;
+    @Getter private final List<String> onClick;
 
     public ItemSection(ConfigurationSection section) {
         this.material = Material.matchMaterial(section.getString("material", "AIR"));
