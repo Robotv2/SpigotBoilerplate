@@ -1,5 +1,6 @@
 package fr.robotv2.spigotboilerplate;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -7,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 
 public class BukkitConfigFile {
@@ -74,5 +77,57 @@ public class BukkitConfigFile {
                 SpigotBoilerplate.INSTANCE.getLogger().log(Level.WARNING, "An error occurred while saving file at path " + filePath, exception);
             }
         }
+    }
+
+    public void updateConfig() {
+        updateConfig(Collections.emptyList());
+    }
+
+    public void updateConfig(List<String> ignoredPaths) {
+
+        if(!this.file.exists()) {
+            setup();
+            return;
+        }
+
+        final YamlConfiguration configuration = this.getConfiguration();
+        InputStream defaultFileStream = plugin.getResource(this.filePath);
+
+        if(defaultFileStream == null) {
+            return;
+        }
+
+        final YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultFileStream));
+        final boolean modified = this.mergeConfigs(defaultConfig, configuration, ignoredPaths);
+
+        if(modified) {
+            try {
+                save();
+                plugin.getLogger().info("File " + filePath + " has been updated to newest version.");
+            } catch (IOException exception) {
+                plugin.getLogger().log(Level.SEVERE, "Could not save updated configuration.", exception);
+            }
+        }
+    }
+
+    private boolean mergeConfigs(FileConfiguration source, FileConfiguration target, List<String> ignoredPaths) {
+        boolean modified = false;
+
+        keyLoop:
+        for (String key : source.getKeys(true)) {
+
+            for(String ignored : ignoredPaths) {
+                if(key.startsWith(ignored)) {
+                    continue keyLoop;
+                }
+            }
+
+            if (!target.isSet(key)) {
+                target.set(key, source.get(key));
+                modified = true;
+            }
+        }
+
+        return modified;
     }
 }
