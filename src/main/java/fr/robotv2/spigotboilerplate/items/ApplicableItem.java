@@ -1,6 +1,10 @@
 package fr.robotv2.spigotboilerplate.items;
 
-import fr.robotv2.spigotboilerplate.placeholders.*;
+import fr.robotv2.spigotboilerplate.placeholders.InternalPlaceholder;
+import fr.robotv2.spigotboilerplate.placeholders.RelationalValuePlaceholder;
+import fr.robotv2.spigotboilerplate.placeholders.SafePlaceholderAPI;
+import fr.robotv2.spigotboilerplate.placeholders.TriRelationalValuePlaceholder;
+import fr.robotv2.spigotboilerplate.placeholders.ValuePlaceholder;
 import fr.robotv2.spigotboilerplate.util.ColorUtil;
 import fr.robotv2.spigotboilerplate.util.ItemUtil;
 import lombok.AllArgsConstructor;
@@ -26,12 +30,18 @@ public class ApplicableItem {
     }
 
     public ApplicableItem name(String name) {
-        ItemUtil.meta(itemStack).ifPresent(itemMeta -> itemMeta.setDisplayName(name));
+        ItemUtil.meta(itemStack).ifPresent(itemMeta -> {
+            itemMeta.setDisplayName(name);
+            itemStack.setItemMeta(itemMeta);
+        });
         return this;
     }
 
     public ApplicableItem lore(List<String> lore) {
-        ItemUtil.meta(itemStack).ifPresent(itemMeta -> itemMeta.setLore(lore));
+        ItemUtil.meta(itemStack).ifPresent(itemMeta -> {
+            itemMeta.setLore(lore);
+            itemStack.setItemMeta(itemMeta);
+        });
         return this;
     }
 
