@@ -13,7 +13,11 @@ public class DecimalUtil {
         return DECIMAL_FORMAT.format(value);
     }
 
-    public String pourcentage(double value, double max) {
-        return format(Math.min(value * 100 / max, 100));
+    public String percentage(double currentValue, double maximumValue) {
+        return percentage(currentValue, maximumValue, 100);
+    }
+
+    public String percentage(double currentValue, double maximumValue, double scale) {
+        return format(Math.min(currentValue * scale / maximumValue, scale));
     }
 }
