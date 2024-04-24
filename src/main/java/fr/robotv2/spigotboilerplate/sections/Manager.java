@@ -37,6 +37,15 @@ public class Manager<T> {
         map.put(id.toUpperCase(Locale.ROOT), value);
     }
 
+    public void clearValues() {
+        map.clear();
+    }
+
+    @UnmodifiableView
+    public Set<String> getKeys() {
+        return Collections.unmodifiableSet(map.keySet());
+    }
+
     @UnmodifiableView
     public Collection<T> getValues() {
         return Collections.unmodifiableCollection(map.values());
