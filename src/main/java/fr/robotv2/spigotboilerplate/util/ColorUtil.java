@@ -21,7 +21,7 @@ public class ColorUtil {
 
         while (matcher.find()) {
             final String color = text.substring(matcher.start() + 1, matcher.end());
-            text = text.replace(color, ChatColor.of(color) + "");
+            text = text.replace("&".concat(color), ChatColor.of(color) + "");
             matcher = HEX_COLOR_PATTERN.matcher(text);
         }
 
