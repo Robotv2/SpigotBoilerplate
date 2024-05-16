@@ -7,8 +7,6 @@ import java.util.concurrent.CompletableFuture;
 
 public interface CompletableStorageManager<ID, T extends Identifiable<ID>> {
 
-    CompletableFuture<Void> save(T value);
-
     CompletableFuture<Optional<T>> select(ID id);
 
     CompletableFuture<Void> insert(T value);
@@ -23,11 +21,6 @@ public interface CompletableStorageManager<ID, T extends Identifiable<ID>> {
 
     static <ID, T extends Identifiable<ID>> CompletableStorageManager<ID, T> wrap(StorageManager<ID, T> storageManager) {
         return new CompletableStorageManager<>() {
-            @Override
-            public CompletableFuture<Void> save(T value) {
-                storageManager.save(value);
-                return CompletableFuture.completedFuture(null);
-            }
 
             @Override
             public CompletableFuture<Optional<T>> select(ID id) {
