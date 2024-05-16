@@ -6,8 +6,6 @@ import java.util.Optional;
 
 public interface StorageManager<ID, T extends Identifiable<ID>> {
 
-    void save(T value);
-
     Optional<T> select(ID id);
 
     void insert(T value);
