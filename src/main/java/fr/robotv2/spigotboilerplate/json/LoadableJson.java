@@ -7,12 +7,18 @@ import com.google.gson.JsonParser;
 import fr.robotv2.spigotboilerplate.SpigotBoilerplate;
 import org.bukkit.plugin.Plugin;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
+@Deprecated
 public abstract class LoadableJson<ID, T extends Identifiable<ID>> {
 
     private final File file;
