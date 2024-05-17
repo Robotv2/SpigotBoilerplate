@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 @Getter
 public class StringMessageParser extends PlaceholderSupport<StringMessageParser> implements MessageParser<String> {
