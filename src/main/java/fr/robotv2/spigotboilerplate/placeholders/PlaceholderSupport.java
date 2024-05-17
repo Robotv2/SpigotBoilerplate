@@ -22,6 +22,16 @@ public abstract class PlaceholderSupport<E extends PlaceholderSupport<E>> {
         return apply(placeholder::apply);
     }
 
+    @SuppressWarnings("unchecked")
+    public E apply(InternalPlaceholder... placeholders) {
+
+        for(InternalPlaceholder placeholder : placeholders) {
+            apply(placeholder);
+        }
+
+        return (E) this;
+    }
+
     public <T> E apply(ValuePlaceholder<T> placeholder, T value) {
         return apply(s -> placeholder.apply(s, value));
     }

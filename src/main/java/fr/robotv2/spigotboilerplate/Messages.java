@@ -1,6 +1,7 @@
 package fr.robotv2.spigotboilerplate;
 
 import fr.robotv2.spigotboilerplate.message.Message;
+import fr.robotv2.spigotboilerplate.message.MessageParser;
 import fr.robotv2.spigotboilerplate.placeholders.impl.InternalPlaceholder;
 import fr.robotv2.spigotboilerplate.util.ColorUtil;
 import lombok.Getter;
@@ -50,8 +51,10 @@ public class Messages {
     }
 
     public void sendPluginMessage(CommandSender sender, String path, InternalPlaceholder... placeholders) {
+        Message.toMessageParser(path).apply(placeholders).send(sender);
     }
 
     public void sendPluginMessage(Collection<? extends CommandSender> senders, String path, InternalPlaceholder... placeholders) {
+        Message.toMessageParser(path).apply(placeholders).send(senders);
     }
 }
