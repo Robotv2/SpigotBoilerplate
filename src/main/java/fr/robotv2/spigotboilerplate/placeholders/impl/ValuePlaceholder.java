@@ -1,4 +1,4 @@
-package fr.robotv2.spigotboilerplate.placeholders;
+package fr.robotv2.spigotboilerplate.placeholders.impl;
 
 @FunctionalInterface
 public interface ValuePlaceholder<A> {

@@ -1,4 +1,4 @@
-package fr.robotv2.spigotboilerplate.placeholders;
+package fr.robotv2.spigotboilerplate.placeholders.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
