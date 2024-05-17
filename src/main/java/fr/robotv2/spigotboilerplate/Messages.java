@@ -1,15 +1,12 @@
 package fr.robotv2.spigotboilerplate;
 
 import fr.robotv2.spigotboilerplate.message.Message;
-import fr.robotv2.spigotboilerplate.message.MessageParser;
 import fr.robotv2.spigotboilerplate.placeholders.impl.InternalPlaceholder;
 import fr.robotv2.spigotboilerplate.util.ColorUtil;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.UtilityClass;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.HashMap;
