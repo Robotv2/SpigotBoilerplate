@@ -7,6 +7,7 @@ import fr.robotv2.spigotboilerplate.util.ColorUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -60,7 +61,7 @@ public class Message {
 
     @NotNull
     public List<String> getColorizedMessages(String path) {
-        return new StringMessageParser(getMessages(path)).color().getMessages();
+        return toMessageParser(path).color().getMessages();
     }
 
     @Deprecated
@@ -83,5 +84,13 @@ public class Message {
 
     public MarkDownParser toMarkDownParser(String path) {
         return new MarkDownParser(getMessages(path));
+    }
+
+    public void sendColorized(CommandSender sender, String path) {
+        toMessageParser(path).color().send(sender);
+    }
+
+    public void sendColorized(Collection<? extends CommandSender> senders, String path) {
+        toMessageParser(path).color().send(senders);
     }
 }
