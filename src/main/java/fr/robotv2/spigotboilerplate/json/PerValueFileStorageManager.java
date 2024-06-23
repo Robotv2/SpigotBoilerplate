@@ -4,6 +4,7 @@ import fr.robotv2.spigotboilerplate.SpigotBoilerplate;
 import fr.robotv2.spigotboilerplate.storage.StorageManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -35,6 +36,8 @@ public class PerValueFileStorageManager<ID, T extends Identifiable<ID>> extends 
         return Optional.ofNullable(valueCache.computeIfAbsent(id, k -> {
             try {
                 return fromFile(getFileFor(id), tClass);
+            } catch (FileNotFoundException fileNotFoundException) {
+                return null;
             } catch (IOException exception) {
                 throw new RuntimeException("Failed to load data with id " + id, exception);
             }
